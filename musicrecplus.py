@@ -127,6 +127,8 @@ def menu():
     h - How popular is the most popular
     m - Which user has the most likes
     q - Save and quit""")
+
+    ###################################################
     
 def main():
     """ main method for menu, files, database and username
