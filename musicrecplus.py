@@ -3,6 +3,9 @@
 # I pledge my Honor that I have abided by the Stevens Honor System.
 
 import os.path
+
+userName = ""
+userDict = {}
 ###################################################
 
 def loadUsers(fileName):
@@ -39,23 +42,30 @@ def saveUserPreferences(userName, prefs, userMap, fileName):
     
  ###################################################
     
-def preference_input(userName, userMap):
+def preference_input():
     """prompts user to enter their liked artists, replacing old preferences if they exist
         input userMap= list storing user data  []
         input userName = specific user id (string)
         author: Mikayla M
     """
-    bandList = []
-    band = input("Enter an artist that you like, or press Enter to quit  : " )
+    global userName, userDict
     
-    while band!="":
-        bandList.append(band.strip().title())
-        band = input("Enter another artist that you like, or press Enter to quit : " )
-        
-    bandList.sort()
-    userMap[userName] = bandList
+    prefs = []
+    
+    while True:
 
-    return userMap
+        band = input("Enter an artist that you like, or press Enter to quit  : " )
+
+        if  band!="":
+            prefs.append(band.strip().title())
+            
+        else:
+            break
+    
+    if userName !="":
+        userDict[userName] = sorted(list(set(prefs)))
+
+
     
 ###################################################
 
@@ -147,11 +157,33 @@ def main():
         authors: Mikayla M & Joseph C
     """
     #userData = loadUsers('musicrecplus.txt')
-    username = input("Hi  user! \nEnter your username, and use $ as a suffix if you would like you preferences to be private :  "    )   
+    username = input("Hi  user! \nEnter your username, and use $ as a suffix if you would like your preferences to be private :  "    )   
     menu()
-                   
-                     
-                        
+
+    menu_choice = input()
+
+    while menu_choice != "q":
+          
+        if menu_choice == "e":
+            preference_input()
+
+        elif menu_choice == "r":
+            create_reccomendations(userName, userMap)
+            
+        elif menu_choice == "p":
+            most_popular(userMap)
+
+        elif menu_choice == "h":
+            most_popular_stat(userMap)
+
+        elif menu_choice == "m":
+            user_most_artists(userMap)
+
+        else :
+            print("Invalid input, please choose an option, or press q to quit")
+
+        menu()
+        menu_choice = input() 
 
 ###################################################            
 
