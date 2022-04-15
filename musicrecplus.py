@@ -93,16 +93,6 @@ def print_preference(userName, userMap) :
 
 ###################################################
 
-def delete_preference(userName, userMap):
-    """ returns users preferences and deletes specific artists based on input
-        input userMap= list storing user data  []
-        input userName = specific user id (string)
-        author: Mikayla M
-    """
-    pass
-
-###################################################
-
 def create_reccomendations():
     """ returns reccommended artists, if no preferences then return no rec
         input userMap= list storing user data  []
