@@ -65,7 +65,21 @@ def print_preference(userName, userMap) :
         input userName = specific user id (string)
         author: Mikayla M
   """
-    pass
+    
+    if userName in userMap:
+        bandList = userMap[userName]
+        return ("Here are your liked artists: /n") +bandList
+
+    else:
+        bandList = []
+        band = input("Enter an artist that you like, or press Enter to quit  : " )
+    
+    while band!="":
+        bandList.append(band.strip().title())
+        band = input("Enter another artist that you like, or press Enter to quit : " )
+        
+    bandList.sort()
+    userMap[userName] = bandList
 
 ###################################################
 
@@ -127,14 +141,12 @@ def menu():
     h - How popular is the most popular
     m - Which user has the most likes
     q - Save and quit""")
-
-    ###################################################
     
 def main():
     """ main method for menu, files, database and username
         authors: Mikayla M & Joseph C
     """
-    #userData = loadUsers('musicrecplus.txt') // was giving error
+    #userData = loadUsers('musicrecplus.txt')
     username = input("Hi  user! \nEnter your username, and use $ as a suffix if you would like you preferences to be private :  "    )   
     menu()
                    
