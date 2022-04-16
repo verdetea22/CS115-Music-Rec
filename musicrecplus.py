@@ -110,9 +110,34 @@ def create_reccomendations():
 ###################################################
 
 def most_popular():
-    """returns most popular artist
+    """returns 3 most popular artists
        author: Joseph Carbonell
     """
+    global userDict
+    pop_dict = {}
+    for user in userDict:
+        if user[-1] != "$":
+            for band in userDict[user]:
+                if band in pop_dict:
+                    pop_dict[band] += 1
+                else:
+                    pop_dict[band] = 1
+    final_list = []
+    if pop_dict:
+        for key in pop_dict:
+            final_list += [[pop_dict[key],key]]
+        final_list.sort()
+        final_list.reverse()
+        if len(final_list) < 3:
+            for i in range(len(final_list)):
+                print(final_list[i][1])
+        else:
+            for i in range(3):
+                print(final_list[i][1])
+    else:
+        print("Sorry, no artists found.")
+            
+                
     
 
 ###################################################
@@ -121,7 +146,26 @@ def most_popular_stat():
     """returns how many people like the most popular artist
        author: Joseph Carbonell
     """
-    pass
+    global userDict
+    pop_dict = {}
+    for user in userDict:
+        if user[-1] != "$":
+            for band in userDict[user]:
+                if band in pop_dict:
+                    pop_dict[band] += 1
+                else:
+                    pop_dict[band] = 1
+    final_list = []
+    if pop_dict:
+        for key in pop_dict:
+            final_list += [[pop_dict[key],key]]
+        final_list.sort()
+        final_list.reverse()
+        print(final_list[0][0])
+    else:
+        print("Sorry, no artists found.")
+    
+    
 
 ###################################################
 
