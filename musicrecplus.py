@@ -13,29 +13,37 @@ def loadUsers(fileName):
        in the file 'fileName'.
        Returns a dictionary containing a mapping of user
        names to a list of preferred artists
-       Author: Joseph C (from textbook)
+       Author: Joseph C
     """
-    file = open(fileName, 'r')
     userDict = {}
-    for line in file:
-        [userName,bands] = line.strip().split(":")
-        bandList = bands.split(",")
-        bandList.sort()
-        userDict[userName] = bandList
-    file.close()
-    return userDict
+    if os.path.exists(fileName):
+        if os.stat(fileName).st_size == 0:
+            return userDict
+        else:
+            file = open(fileName, 'r')
+            for line in file:
+                [userName,bands] = line.strip().split(":")
+                bandList = bands.split(",")
+                bandList.sort()
+                userDict[userName] = bandList
+        file.close()
+        return userDict
+    else:
+        file = open(fileName,'x')
+        file.close()
+        return userDict
 
 ###################################################
 
-def saveUserPreferences(userName, prefs, userMap, fileName):
+def saveUserPreferences(fileName):
     """Writes all of the user preferences to the file
        Returns nothing.
-       Author: Joseph C (from textbook)
+       Author: Joseph C
     """
-    userMap[userName] = prefs
+    global userDict
     file = open(fileName, "w")
-    for user in userMap:
-        toSave = str(user) + ":" + ",".join(userMap[user]) + \
+    for user in userDict:
+        toSave = str(user) + ":" + ",".join(userDict[user]) + \
                  "\n"
         file.write(toSave)
     file.close()
@@ -44,9 +52,7 @@ def saveUserPreferences(userName, prefs, userMap, fileName):
     
 def preference_input():
     """prompts user to enter their liked artists, replacing old preferences if they exist
-        input userMap= list storing user data  []
-        input userName = specific user id (string)
-        author: Mikayla M
+        author: Mikayla M edit by Joseph C
     """
     global userName, userDict
     
@@ -104,18 +110,16 @@ def create_reccomendations():
 ###################################################
 
 def most_popular():
-    """returns most popular artist 
-       input userMap= list storing user data  []
-       author: 
+    """returns most popular artist
+       author: Joseph Carbonell
     """
-    pass
+    
 
 ###################################################
 
 def most_popular_stat():
     """returns how many people like the most popular artist
-       input userMap= list storing user data  []
-       author: 
+       author: Joseph Carbonell
     """
     pass
 
@@ -146,10 +150,11 @@ def main():
     """ main method for menu, files, database and username
         authors: Mikayla M & Joseph C
     """
-    if userDict  !={}:
-        userData = loadUsers('musicrecplus.txt')
+    global userName, userDict
+    if userDict  == {}:
+        userDict = loadUsers('musicrecplus.txt')
 
-    username = input("Hi  user! \nEnter your username, and use $ as a suffix if you would like your preferences to be private :  "    )   
+    userName = input("Hi  user! \nEnter your username, and use $ as a suffix if you would like your preferences to be private :  "    )   
     menu()
 
     menu_choice = input()
@@ -175,8 +180,10 @@ def main():
             print("Invalid input, please choose an option, or press q to quit")
 
         menu()
-        menu_choice = input() 
+        menu_choice = input()
+    saveUserPreferences('musicrecplus.txt')
 
 ###################################################            
 
 main()
+
