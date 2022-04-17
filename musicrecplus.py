@@ -101,11 +101,73 @@ def print_preference(userName, userMap) :
 
 def create_reccomendations():
     """ returns reccommended artists, if no preferences then return no rec
-        input userMap= list storing user data  []
+        input userDict = list storing user data  []
         input userName = specific user id (string)
-        author: 
+        author: Kent Q (from textbook)
     """
-    pass
+    global userName, userDict
+
+    bestUser = findBestUser(userName, prefs, userDict) # not sure what to put to "prefs", need to call whatever
+    # stores the preferences for this function; one uses global variables (preference_input), other does not (print_preference)
+    recommendations = drop(prefs, userDict[bestUser])
+    return recommendations
+
+###################################################
+
+def findBestUser(userName, prefs, userDict):
+    """ [HELPER FUNCTION] find the user whose tates are closest to the current user. Return the best user's name (a string)
+         author: Kent Q (from textbook)
+    """
+    bestUser = None
+    bestScore = -1
+    print("Prefs is", prefs)
+    for user in userDict.keys():
+        score = numMatches(prefs, userDict[user])
+        if score > bestScore and userName != user:
+            bestScore = score
+            bestUser = user
+    return bestUser
+
+###################################################
+
+def drop(list1, list2):
+    """ [HELPER FUNCTION] return a new list that contains only the elements in list2 that were NOT in list1.
+         author: Kent Q (from textbook)
+    """
+    list3 = []
+    i, j = 0, 0
+    while (i < len(list1) and j < len(list2)):
+        if list1[i] == list2[j]:
+            print("Skipping", list1[i])
+            i += 1
+            j += 1
+        elif list1[i] < list2[j]:
+            i += 1
+        else:
+            list3.append(list2[j])
+            j += 1
+    while (j < len(list2)):
+           list3.append(list2[j])
+           j += 1
+    return list3
+
+###################################################
+
+def numMatches(list1, list2):
+    """ [HELPER FUNCTION] return the number of elements that match between two sorted lists
+         author: Kent Q (from textbook)
+    """
+    matches = 0
+    i, j = 0, 0
+    while i < len(list1) and j < len(list2):
+        if list1[i] == list2[j]:
+            i += 1
+            j += 1
+        elif list1[i] < list2[j]:
+            i += 1
+        else:
+            j += 1
+    return matches
 
 ###################################################
 
@@ -174,7 +236,18 @@ def user_most_artists():
         input userMap= list storing user data  []
         author: 
     """
-    pass
+    global userDict
+    
+    len_likes = {}
+    if len(userDict) != 0:
+        for i in (userDict):
+            if i[-1] == '$':
+                continue
+            else:
+                len_likes[i] = len(userMap[i])
+        print(sorted(len_likes, key = len_likes.get, reverse = True)[0])
+    else:
+        print("Sorry, no user found.")
 
 ###################################################
 
