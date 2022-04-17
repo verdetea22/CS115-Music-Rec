@@ -169,10 +169,11 @@ def numMatches(list1, list2):
             j += 1
     return matches
 
+
 ###################################################
 
-def most_popular():
-    """returns 3 most popular artists
+def create_most_popular_list():
+    """HELPER: returns list of artists sorted by most popular
        author: Joseph Carbonell
     """
     global userDict
@@ -190,6 +191,18 @@ def most_popular():
             final_list += [[pop_dict[key],key]]
         final_list.sort()
         final_list.reverse()
+        return final_list
+    else:
+        return []
+
+###################################################
+
+def most_popular():
+    """returns 3 most popular artists
+       author: Joseph Carbonell
+    """
+    final_list = create_most_popular_list()
+    if final_list != []:
         if len(final_list) < 3:
             for i in range(len(final_list)):
                 print(final_list[i][1])
@@ -208,21 +221,8 @@ def most_popular_stat():
     """returns how many people like the most popular artist
        author: Joseph Carbonell
     """
-    global userDict
-    pop_dict = {}
-    for user in userDict:
-        if user[-1] != "$":
-            for band in userDict[user]:
-                if band in pop_dict:
-                    pop_dict[band] += 1
-                else:
-                    pop_dict[band] = 1
-    final_list = []
-    if pop_dict:
-        for key in pop_dict:
-            final_list += [[pop_dict[key],key]]
-        final_list.sort()
-        final_list.reverse()
+    final_list = create_most_popular_list()
+    if final_list != []:
         print(final_list[0][0])
     else:
         print("Sorry, no artists found.")
