@@ -106,24 +106,24 @@ def create_reccomendations():
         author: Kent Q (from textbook)
     """
     global userName, userDict
+    prefs = sorted(userDict.get(userName))
 
-    bestUser = findBestUser(userName, prefs, userDict) # not sure what to put to "prefs", need to call whatever
-    # stores the preferences for this function; one uses global variables (preference_input), other does not (print_preference)
+    bestUser = findBestUser(userName, prefs, userDict)
     recommendations = drop(prefs, userDict[bestUser])
     return recommendations
 
 ###################################################
 
-def findBestUser(userName, prefs, userDict):
+def findBestUser(currUser, prefs, userMap):
     """ [HELPER FUNCTION] find the user whose tates are closest to the current user. Return the best user's name (a string)
          author: Kent Q (from textbook)
     """
     bestUser = None
     bestScore = -1
     print("Prefs is", prefs)
-    for user in userDict.keys():
-        score = numMatches(prefs, userDict[user])
-        if score > bestScore and userName != user:
+    for user in userMap.keys():
+        score = numMatches(prefs, userMap[user])
+        if score > bestScore and currUser != user:
             bestScore = score
             bestUser = user
     return bestUser
@@ -136,9 +136,9 @@ def drop(list1, list2):
     """
     list3 = []
     i, j = 0, 0
-    while (i < len(list1) and j < len(list2)):
+    while i < len(list1) and j < len(list2):
         if list1[i] == list2[j]:
-            print("Skipping", list1[i])
+            print("Ski[pping", list1[i])
             i += 1
             j += 1
         elif list1[i] < list2[j]:
@@ -146,9 +146,9 @@ def drop(list1, list2):
         else:
             list3.append(list2[j])
             j += 1
-    while (j < len(list2)):
-           list3.append(list2[j])
-           j += 1
+    while j < len(list2):
+        list3.append(list2[j])
+        j += 1
     return list3
 
 ###################################################
@@ -157,14 +157,14 @@ def numMatches(list1, list2):
     """ [HELPER FUNCTION] return the number of elements that match between two sorted lists
          author: Kent Q (from textbook)
     """
-    matches = 0
-    i, j = 0, 0
+    matches, i, j = 0, 0, 0
     while i < len(list1) and j < len(list2):
         if list1[i] == list2[j]:
+            matches += 1
             i += 1
             j += 1
         elif list1[i] < list2[j]:
-            i += 1
+            i == 1
         else:
             j += 1
     return matches
@@ -234,17 +234,17 @@ def most_popular_stat():
 def user_most_artists():
     """ returns user with the most preferences, one per line and sorted if more than one
         input userMap= list storing user data  []
-        author: 
+        author: Kent Q
     """
     global userDict
     
     len_likes = {}
     if len(userDict) != 0:
-        for i in (userDict):
+        for i in userDict:
             if i[-1] == '$':
                 continue
             else:
-                len_likes[i] = len(userMap[i])
+                len_likes[i] = len(userDict[i])
         print(sorted(len_likes, key = len_likes.get, reverse = True)[0])
     else:
         print("Sorry, no user found.")
