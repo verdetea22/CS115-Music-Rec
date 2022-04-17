@@ -1,4 +1,4 @@
-#  Mikayla Mount, Joseph Carbonell
+#  Mikayla Mount, Joseph Carbonell, Kent Quach
 # CS115 
 # I pledge my Honor that I have abided by the Stevens Honor System.
 
@@ -265,7 +265,7 @@ def menu():
     
 def main():
     """ main method for menu, files, database and username
-        authors: Mikayla M & Joseph C
+        authors: Mikayla M, Joseph C & Kent Q
     """
     global userName, userDict
     if userDict  == {}:
