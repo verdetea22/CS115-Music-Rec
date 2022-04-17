@@ -106,24 +106,29 @@ def create_reccomendations():
         author: Kent Q (from textbook)
     """
     global userName, userDict
-    prefs = sorted(userDict.get(userName))
+    prefs = userDict.get(userName)
 
-    bestUser = findBestUser(userName, prefs, userDict)
+    bestUser = findBestUser()
     recommendations = drop(prefs, userDict[bestUser])
     return recommendations
 
 ###################################################
 
-def findBestUser(currUser, prefs, userMap):
-    """ [HELPER FUNCTION] find the user whose tates are closest to the current user. Return the best user's name (a string)
-         author: Kent Q (from textbook)
+def findBestUser():
+    """ [HELPER FUNCTION] find the user whose tastes are closest to the current user. Return the best user's name (a string)
+         author: Kent Q
     """
+    global userName, userDict
     bestUser = None
     bestScore = -1
+    prefs = userDict.get(userName)
     print("Prefs is", prefs)
-    for user in userMap.keys():
-        score = numMatches(prefs, userMap[user])
-        if score > bestScore and currUser != user:
+    for user in userDict.keys():
+        print(user)
+        print(userDict.get(user))
+        score = numMatches(prefs, userDict.get(user))
+        print(score)
+        if score > bestScore and userName != user:
             bestScore = score
             bestUser = user
     return bestUser
@@ -159,6 +164,7 @@ def numMatches(list1, list2):
     """
     matches, i, j = 0, 0, 0
     while i < len(list1) and j < len(list2):
+        print(matches, i, j)
         if list1[i] == list2[j]:
             matches += 1
             i += 1
