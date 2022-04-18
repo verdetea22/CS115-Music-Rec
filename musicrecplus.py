@@ -103,16 +103,16 @@ def create_reccomendations():
     """ returns reccommended artists, if no preferences then return no rec
         input userDict = list storing user data  []
         input userName = specific user id (string)
-        author: Kent Quach (from textbook)
+        author: Kent Q 
     """
     global userName, userDict
-    if (userName in userDict.keys()) == False:
-        return print("No preferences available at this time.")
     if len(userDict.keys()) == 1:
         return print("No preferences available at this time.")
     prefs = userDict.get(userName)
     bestUser = findBestUser()
     recommendations = drop(prefs, userDict.get(bestUser))
+    if (recommendations == []):
+        return print("No preferences available at this time.")
     for artist in recommendations:
         print(artist)
 
@@ -120,23 +120,26 @@ def create_reccomendations():
 
 def findBestUser():
     """ [HELPER FUNCTION] find the user whose tastes are closest to the current user. Return the best user's name (a string)
-         author: Kent Quach
+         author: Kent Q
     """
     global userName, userDict
     bestScore = -1
     prefs = userDict.get(userName)
     for user in userDict.keys():
-        score = numMatches(prefs, userDict[user])
-        if score > bestScore and userName != user:
-            bestScore = score
-            bestUser = user
+        if user[-1] == "$":
+            continue
+        else:
+            score = numMatches(prefs, userDict[user])
+            if score > bestScore and userName != user:
+                bestScore = score
+                bestUser = user
     return bestUser
 
 ###################################################
 
 def drop(list1, list2):
     """ [HELPER FUNCTION] return a new list that contains only the elements in list2 that were NOT in list1.
-         author: Kent Quach, Joseph Carbonell
+         author: Kent Q & Joseph C
     """
     list3 = []
     for item in list2:
@@ -149,7 +152,7 @@ def drop(list1, list2):
 
 def numMatches(list1, list2):
     """ [HELPER FUNCTION] return the number of elements that match between two sorted lists
-         author: Kent Quach (from textbook)
+         author: Kent Q (from textbook)
     """
     matches, i, j = 0, 0, 0
     while i < len(list1) and j < len(list2):
@@ -264,7 +267,9 @@ def main():
     if userDict  == {}:
         userDict = loadUsers('musicrecplus.txt')
 
-    userName = input("Hi user! \nEnter your username, and use $ as a suffix if you would like your preferences to be private :  "    )   
+    userName = input("Hi  user! \nEnter your username, and use $ as a suffix if you would like your preferences to be private :  "    )
+    if ((userName in userDict.keys()) != True):
+        preference_input()
     menu()
 
     menu_choice = input()
@@ -296,3 +301,4 @@ def main():
 ###################################################            
 
 main()
+
