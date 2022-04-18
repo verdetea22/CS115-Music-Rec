@@ -264,7 +264,7 @@ def main():
     if userDict  == {}:
         userDict = loadUsers('musicrecplus.txt')
 
-    userName = input("Hi  user! \nEnter your username, and use $ as a suffix if you would like your preferences to be private :  "    )   
+    userName = input("Hi user! \nEnter your username, and use $ as a suffix if you would like your preferences to be private :  "    )   
     menu()
 
     menu_choice = input()
