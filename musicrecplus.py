@@ -164,17 +164,15 @@ def numMatches(list1, list2):
     """
     matches, i, j = 0, 0, 0
     while i < len(list1) and j < len(list2):
-        print(matches, i, j)
         if list1[i] == list2[j]:
             matches += 1
             i += 1
             j += 1
         elif list1[i] < list2[j]:
-            i == 1
+            i += 1
         else:
             j += 1
     return matches
-
 
 ###################################################
 
