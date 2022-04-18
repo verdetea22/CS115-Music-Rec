@@ -109,7 +109,7 @@ def create_reccomendations():
     prefs = userDict.get(userName)
 
     bestUser = findBestUser()
-    recommendations = drop(prefs, userDict[bestUser])
+    recommendations = drop(prefs, userDict.get(bestUser))
     return recommendations
 
 ###################################################
@@ -119,18 +119,17 @@ def findBestUser():
          author: Kent Q
     """
     global userName, userDict
-    bestUser = None
     bestScore = -1
     prefs = userDict.get(userName)
-    print("Prefs is", prefs)
+    print("Your preferences:", prefs)
     for user in userDict.keys():
-        print(user)
-        print(userDict.get(user))
-        score = numMatches(prefs, userDict.get(user))
-        print(score)
+        score = numMatches(prefs, userDict[user])
         if score > bestScore and userName != user:
             bestScore = score
             bestUser = user
+    print(bestUser)
+    print(userDict.get(user))
+    print("Similarity Score:", bestScore)
     return bestUser
 
 ###################################################
@@ -140,10 +139,11 @@ def drop(list1, list2):
          author: Kent Q (from textbook)
     """
     list3 = []
-    i, j = 0, 0
+    i = 0
+    j = 0
     while i < len(list1) and j < len(list2):
         if list1[i] == list2[j]:
-            print("Ski[pping", list1[i])
+            print("Skipping", list1[i])
             i += 1
             j += 1
         elif list1[i] < list2[j]:
