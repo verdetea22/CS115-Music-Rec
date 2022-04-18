@@ -1,4 +1,1 @@
-JCarbon3:Citizen Soldier,Shinedown,The Cab
-testUser1:Taylor Swift,The Cab
-testUser2:Shinedown,Taylor Swift
-testUser3$:Shinedown
+JCarbon3:Citizen Soldier,The Cab
