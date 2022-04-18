@@ -103,7 +103,7 @@ def create_reccomendations():
     """ returns reccommended artists, if no preferences then return no rec
         input userDict = list storing user data  []
         input userName = specific user id (string)
-        author: Kent Q (from textbook)
+        author: Kent Quach (from textbook)
     """
     global userName, userDict
     if (userName in userDict.keys()) == False:
@@ -120,7 +120,7 @@ def create_reccomendations():
 
 def findBestUser():
     """ [HELPER FUNCTION] find the user whose tastes are closest to the current user. Return the best user's name (a string)
-         author: Kent Q
+         author: Kent Quach
     """
     global userName, userDict
     bestScore = -1
@@ -136,7 +136,7 @@ def findBestUser():
 
 def drop(list1, list2):
     """ [HELPER FUNCTION] return a new list that contains only the elements in list2 that were NOT in list1.
-         author: Kent Q (from textbook)
+         author: Kent Quach, Joseph Carbonell
     """
     list3 = []
     for item in list2:
@@ -149,7 +149,7 @@ def drop(list1, list2):
 
 def numMatches(list1, list2):
     """ [HELPER FUNCTION] return the number of elements that match between two sorted lists
-         author: Kent Q (from textbook)
+         author: Kent Quach (from textbook)
     """
     matches, i, j = 0, 0, 0
     while i < len(list1) and j < len(list2):
