@@ -107,13 +107,14 @@ def create_reccomendations():
     """
     global userName, userDict
     if (userName in userDict.keys()) == False:
-        return print("You have no preferences.")
+        return print("No preferences available at this time.")
     if len(userDict.keys()) == 1:
-        return print("No other users to compare with.")
+        return print("No preferences available at this time.")
     prefs = userDict.get(userName)
     bestUser = findBestUser()
     recommendations = drop(prefs, userDict.get(bestUser))
-    return recommendations
+    for artist in recommendations:
+        print(artist)
 
 ###################################################
 
@@ -124,15 +125,11 @@ def findBestUser():
     global userName, userDict
     bestScore = -1
     prefs = userDict.get(userName)
-    print("Your preferences:", prefs)
     for user in userDict.keys():
         score = numMatches(prefs, userDict[user])
         if score > bestScore and userName != user:
             bestScore = score
             bestUser = user
-    print(bestUser)
-    print(userDict.get(user))
-    print("Similarity Score:", bestScore)
     return bestUser
 
 ###################################################
@@ -142,22 +139,11 @@ def drop(list1, list2):
          author: Kent Q (from textbook)
     """
     list3 = []
-    i = 0
-    j = 0
-    while i < len(list1) and j < len(list2):
-        if list1[i] == list2[j]:
-            print("Skipping", list1[i])
-            i += 1
-            j += 1
-        elif list1[i] < list2[j]:
-            i += 1
-        else:
-            list3.append(list2[j])
-            j += 1
-    while j < len(list2):
-        list3.append(list2[j])
-        j += 1
+    for item in list2:
+        if ((item in list1) != True):
+            list3 += [item]
     return list3
+            
 
 ###################################################
 

@@ -1,1 +1,3 @@
 JCarbon3:Citizen Soldier,The Cab
+testUser1:Citizen Soldier,Taylor Swift
+testUser2:Halsey,Shinedown,Sleeping With Sirens,Taylor Swift,The Cab
